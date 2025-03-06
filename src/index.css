@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --slime-primary: #0aff7a;
+  --slime-secondary: #00d65e;
+  --slime-accent: #3aff96;
+  --slime-dark: #1a1a2e;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  
+  body {
+    @apply bg-black text-white;
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(10, 255, 122, 0.05) 0%, transparent 20%),
+      radial-gradient(circle at 90% 50%, rgba(10, 255, 122, 0.05) 0%, transparent 25%),
+      radial-gradient(circle at 40% 80%, rgba(10, 255, 122, 0.05) 0%, transparent 20%);
+    background-size: 100% 100%;
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .slime-button {
+    @apply relative px-6 py-3 font-bold text-black bg-slime-400 rounded-full overflow-hidden shadow-lg hover:shadow-slime-400/50 transition-all duration-300 hover:-translate-y-1 hover:bg-slime-300;
+  }
+
+  .slime-glow {
+    @apply absolute -inset-1 bg-slime-400 opacity-25 blur-xl;
+  }
+  
+  .nav-link {
+    @apply font-medium hover:text-slime-400 transition-colors duration-300;
+  }
+  
+  .section-title {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold mb-6 relative inline-block;
+  }
+  
+  .section-title::after {
+    content: '';
+    @apply absolute left-0 bottom-0 w-1/2 h-1 bg-slime-400;
+  }
+}
+
+/* Custom slime drop animation */
+.slime-drop {
+  filter: url(#goo);
+}
+
+.slime-blob {
+  animation: slime-drop 4s infinite;
+}
+
+@keyframes slime-drop {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    border-radius: 50%;
+  }
+  50% {
+    transform: translateY(20px) scale(1.1, 0.9);
+    border-radius: 40% 40% 60% 60%;
+  }
+}
+
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.6s, opacity 0.6s;
+  opacity: 0;
+}
+
+.ripple-effect:active::after {
+  transform: scale(100);
+  opacity: 0;
+  transition: 0s;
+}
